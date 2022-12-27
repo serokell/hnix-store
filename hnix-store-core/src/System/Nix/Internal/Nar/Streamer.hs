@@ -79,7 +79,7 @@ streamNarIO effs basePath yield = do
       yield $ int fSize
       yieldFile path fSize
 
-    when (isDir && not isSymLink) $ do
+    when isDir $ do
       fs <- IO.liftIO (Nar.narListDir effs path)
       yield $ strs ["type", "directory"]
       forM_ (sort fs) $ \f -> do
